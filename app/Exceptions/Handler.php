@@ -53,6 +53,13 @@ class Handler extends ExceptionHandler
         if ($exception instanceof \Illuminate\Session\TokenMismatchException) {
             return redirect()->route('login');
         }
+
+        if ($this->isHttpException($exception)) {
+            if ($exception->getStatusCode() == 404) {
+                return redirect()->route('home');
+            }
+        }
+
         return parent::render($request, $exception);
     }
 }

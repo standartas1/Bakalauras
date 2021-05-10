@@ -56,7 +56,18 @@
                             <canvas id="myPieChart"></canvas>
                         </div>
                         <hr>
-                        Client: {{ $client->name }}
+                        <center>Client: {{ $client->name }}</center>
+                        <div class="mt-4 text-center small">
+                            <span class="mr-2">
+                                <i class="fas fa-circle" style="color:#e6ae25"></i> Price
+                            </span>
+                            <span class="mr-2">
+                                <i class="fas fa-circle" style="color:#1cc88a"></i> Prime cost
+                            </span>
+                            <span class="mr-2">
+                                <i class="fas fa-circle" style="color:#4e73df;"></i> Profit 
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>

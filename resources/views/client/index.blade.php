@@ -56,7 +56,6 @@
                                                     <button class="btn btn-danger" type="button">Delete</button>
                                                 </form>
                                             </div>
-
                                         </td>
                                         @endif
                                     </tr>
@@ -66,7 +65,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 @endsection
 

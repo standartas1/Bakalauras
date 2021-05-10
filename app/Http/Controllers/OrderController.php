@@ -98,13 +98,13 @@ class OrderController extends Controller
             return redirect()->route('orders.index');
         }
         $validatedData = $request->validate([
-            'price' => 'required|between:0,999999.99',
-            'price_self' => 'required|between:0,999999.99',
+            'price' => 'required|between:0,999999.99|numeric',
+            'price_self' => 'required|between:0,999999.99|numeric',
             'client_id' => 'required',
             'type_id' => 'required',
             'information' => 'nullable',
             'subtype_id' => 'nullable',
-            'file' => 'mimes:pdf,xlx|max:2048|sometimes|nullable',
+            'file' => 'mimes:pdf,xlx,xlsx|max:2048|sometimes|nullable',
         ]);
 //        dd($validatedData);
         if ($validatedData['type_id'] != 1) {
