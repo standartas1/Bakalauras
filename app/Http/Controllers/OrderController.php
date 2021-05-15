@@ -182,7 +182,7 @@ class OrderController extends Controller
             'type_id' => 'required',
             'information' => 'nullable',
             'subtype_id' => 'nullable',
-            'file' => 'mimes:pdf,xlx|max:2048|sometimes|nullable',
+            'file' => 'mimes:pdf,xlx,xlsx|max:2048|sometimes|nullable',
         ]);
         $order = Order::find($id);
         if ($validatedData['type_id'] != 1) {
@@ -190,7 +190,21 @@ class OrderController extends Controller
         }
         $validatedData['profit'] = $validatedData['price'] - $validatedData['price_self'];
 
-        if (isset($validatedData['file']) && $validatedData['file']->getClientOriginalName() !== $order->file->name) {
+        if (isset($validatedData['file']) && $order->file == null) {
+            $originalName = $validatedData['file']->getClientOriginalName();
+
+            $fileName = 'uploads/'.time().'_'.$originalName;
+
+            Storage::disk('local')->put($fileName, file_get_contents($validatedData['file']));
+
+            $fileArray = [
+                'name'=>$originalName,
+                'location'=>$fileName
+            ];
+            $file = File::create($fileArray);
+            $validatedData['file_id'] = $file->id;
+        }
+        else if (isset($validatedData['file']) && $validatedData['file']->getClientOriginalName() !== $order->file->name) {
             $originalName = $validatedData['file']->getClientOriginalName();
 
             $fileName = 'uploads/'.time().'_'.$originalName;
